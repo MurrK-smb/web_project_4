@@ -1,0 +1,15 @@
+
+.info {
+  height: fit-content;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 320px) {
+  .info {
+    height: 50px;
+    margin-top: 30px;
+  }
+}

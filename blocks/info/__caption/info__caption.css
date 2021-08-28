@@ -1,0 +1,16 @@
+
+.info__caption {
+  width: fit-content;
+  margin: 16px 0 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.22;
+}
+
+@media screen and (max-width: 320px) {
+  .info__caption {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,10 @@
+
+.card__like-image {
+  width: 21px;
+  height: 19px;
+  transition: opacity .2s ease;
+}
+
+.card__like-image:hover {
+  opacity: .5;
+}

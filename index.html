@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Document</title>
+</head>
+
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="images/around.svg" alt="'Around The U.S.' logo">
+    <hr class="header__line">
+  </header>
+
+  <main class="content">
+    <section class="profile">
+      <img class="avatar" src="images/image.png" alt="Your custom profile picture">
+      <div class="info">
+        <div class="info__name-group">
+          <h1 class="info__name">Jacques Cousteau</h1>
+          <button class="info__edit-button" type="button">
+            <img class="info__edit-image" src="images/edit.svg" alt="pencil image">
+          </button>
+        </div>
+        <p class="info__caption">Explorer</p>
+      </div>
+      <button class="add-button">
+        <img class="add-image" src="images/add.svg" alt="plus image">
+      </button>
+    </section>
+
+    <section class="modal">
+      <div class="modal__body">
+        <button class="modal__close-button">
+          <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
+        </button>
+        <h2 class="modal__title">Edit profile</h2>
+        <form class="form">
+          <label class="form__label">
+            <input class="form__name" type="text" name="list-name" autocomplete="off">
+            <hr class="form__line">
+          </label>
+          <label class="form__label">
+            <input class="form__caption" type="text" name="list-caption" autocomplete="off">
+            <hr class="form__line">
+          </label>
+          <button class="form__submit" type="button">Save</button>
+        </form>
+      </div>
+    </section>
+  
+    <section class="cards">
+      <div class="card">
+        <img class="card__image" src="images/card-image1.png" alt="A river cutting through a forest">
+        <div class="card__details">
+          <p class="card__title">Yosemite Valley</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+  
+      <div class="card">
+        <img class="card__image" src="images/card-image2.png" alt="A large river in a deep Valley">
+        <div class="card__details">
+          <p class="card__title">Lake Lousie</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+  
+      <div class="card">
+        <img class="card__image" src="images/card-image3.png" alt="Sun setting over the mountain tops">
+        <div class="card__details">
+          <p class="card__title">Bald Mountains</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+  
+      <div class="card">
+        <img class="card__image" src="images/card-image4.png" alt="Night sky over mountains">
+        <div class="card__details">
+          <p class="card__title">Latemar</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+  
+      <div class="card">
+        <img class="card__image" src="images/card-image5.png" alt="A large lake">
+        <div class="card__details">
+          <p class="card__title">Vanoise Nationa...</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+  
+      <div class="card">
+        <img class="card__image" src="images/card-image6.png" alt="A few row boats at the end of a dock">
+        <div class="card__details">
+          <p class="card__title">Lago di Braise</p>
+          <img class="card__like-image" src="images/heart.svg" alt="heart image">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2021 Around The U.S.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
