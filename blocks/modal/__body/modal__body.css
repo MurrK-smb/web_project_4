@@ -1,7 +1,6 @@
 
 .modal__body {
-  width: 430px;
-  height: 330px;
+  width: min(100%, 430px);
   margin: 19px;
   padding: 36px;
   box-sizing: border-box;
@@ -15,8 +14,8 @@
 
 @media screen and (max-width: 320px) {
   .modal__body {
-    width: 282px;
-    height: 322px;
+    max-width: 282px;
+    max-height: 322px;
     padding: 25px 22px;
   }
 }

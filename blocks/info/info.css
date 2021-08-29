@@ -9,7 +9,6 @@
 
 @media screen and (max-width: 320px) {
   .info {
-    height: 50px;
     margin-top: 30px;
   }
 }

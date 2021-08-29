@@ -5,12 +5,19 @@
   font-size: 18px;
   font-weight: normal;
   line-height: 1.22;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 620px) {
+  .info__caption {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 320px) {
   .info__caption {
     margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
   }
 }

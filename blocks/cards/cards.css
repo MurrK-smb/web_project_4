@@ -8,9 +8,18 @@
   row-gap: 21px;
 }
 
+@media screen and (max-width: 620px) {
+  .cards {
+    margin-top: 36px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 10px;
+    row-gap: 20px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .cards {
-    height: 2266px;
     margin-top: 36px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(6, 1fr);
