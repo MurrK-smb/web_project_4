@@ -37,13 +37,23 @@
 @import url(../blocks/cards/cards.css);
 
 @import url(../blocks/card/card.css);
+@import url(../blocks/card/__delete/card__delete.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__details/card__details.css);
 @import url(../blocks/card/__title/card__title.css);
 @import url(../blocks/card/__like-button/card__like-button.css);
+@import url(../blocks/card/__like-button/__a/card__like-button_a.css);
 @import url(../blocks/card/__like-image/card__like-image.css);
+
+@import url(../blocks/img-popup/img-popup.css);
+@import url(../blocks/img-popup/__container/img-popup__container.css);
+@import url(../blocks/img-popup/__close/img-popup__close.css);
+@import url(../blocks/img-popup/__content/img-popup__content.css);
+@import url(../blocks/img-popup/__title/img-popup__title.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+@import url(../blocks/fade-out.css);
 
 @import url(../vendor/fonts/inter.css);

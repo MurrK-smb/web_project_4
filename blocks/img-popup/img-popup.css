@@ -1,5 +1,5 @@
 
-.modal {
+.img-popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +10,10 @@
   right: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  animation: fade-in .25s ease;
+  animation: fade .25s ease;
 }
 
-@keyframes fade-in {
+@keyframes fade {
   0% {
     opacity: 0;
   }

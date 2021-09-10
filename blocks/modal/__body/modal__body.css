@@ -2,7 +2,7 @@
 .modal__body {
   width: min(100%, 430px);
   margin: 19px;
-  padding: 36px;
+  padding: 34px 36px 36.5px;
   box-sizing: border-box;
   position: relative;
   display: flex;

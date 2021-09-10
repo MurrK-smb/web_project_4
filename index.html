@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages/index.css">
-  <title>Document</title>
+  <title>Around the U.S.</title>
 </head>
 
 <body class="page">
@@ -30,80 +30,43 @@
       </button>
     </section>
 
-    <section class="modal">
-      <div class="modal__body">
-        <button class="modal__close-button" type="button">
-          <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
-        </button>
-        <h2 class="modal__title">Edit profile</h2>
-        <form class="form" name="form">
-          <input class="form__input" id="form-name" type="text" name="form-name" autocomplete="off">
-          <input class="form__input" id="form-caption" type="text" name="form-caption" autocomplete="off">
-          <button class="form__submit" type="submit">Save</button>
-        </form>
-      </div>
-    </section>
+    <template id="modal-template">
+      <section class="modal">
+        <div class="modal__body">
+          <button class="modal__close-button" type="button">
+            <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
+          </button>
+          <h2 class="modal__title"></h2>
+          <form class="form" name="form">
+            <input class="form__input" id="form-name" type="text" name="form-name" autocomplete="off">
+            <input class="form__input" id="form-caption" type="text" name="form-caption" autocomplete="off">
+            <button class="form__submit" type="submit"></button>
+          </form>
+        </div>
+      </section>
+    </template>
   
     <section class="cards">
-      <div class="card">
-        <img class="card__image" src="images/card-image1.png" alt="A river cutting through a forest">
-        <div class="card__details">
-          <h2 class="card__title">Yosemite Valley</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
+      <template id="card-template">
+        <div class="card">
+          <button class="card__delete" type="button"></button>
+          <img class="card__image" src="" alt="image post">
+          <div class="card__details">
+            <h2 class="card__title"></h2>
+            <button class="card__like-button" type="button"></button>
+          </div>
         </div>
-      </div>
-  
-      <div class="card">
-        <img class="card__image" src="images/card-image2.png" alt="A large river in a deep Valley">
-        <div class="card__details">
-          <h2 class="card__title">Lake Lousie</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
+      </template>
+
+      <template id="img-template">
+        <div class="img-popup">
+          <div class="img-popup__container">
+            <button class="img-popup__close"></button>
+            <img class="img-popup__content" src="" alt="card image">
+            <p class="img-popup__title"></p>
+          </div>
         </div>
-      </div>
-  
-      <div class="card">
-        <img class="card__image" src="images/card-image3.png" alt="Sun setting over the mountain tops">
-        <div class="card__details">
-          <h2 class="card__title">Bald Mountains</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
-        </div>
-      </div>
-  
-      <div class="card">
-        <img class="card__image" src="images/card-image4.png" alt="Night sky over mountains">
-        <div class="card__details">
-          <h2 class="card__title">Latemar</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
-        </div>
-      </div>
-  
-      <div class="card">
-        <img class="card__image" src="images/card-image5.png" alt="A large lake">
-        <div class="card__details">
-          <h2 class="card__title">Vanoise National Park</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
-        </div>
-      </div>
-  
-      <div class="card">
-        <img class="card__image" src="images/card-image6.png" alt="A few row boats at the end of a dock">
-        <div class="card__details">
-          <h2 class="card__title">Lago di Braise</h2>
-          <button class="card__like-button" type="button">
-            <img class="card__like-image" src="images/heart.svg" alt="heart image">
-          </button>
-        </div>
-      </div>
+      </template>
     </section>
   </main>
 
