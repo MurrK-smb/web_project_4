@@ -29,41 +29,51 @@
         <img class="add-image" src="images/add.svg" alt="plus image">
       </button>
     </section>
+    
+    <div class="modal modal_closed" id="edit">
+      <div class="modal__body modal__body_input">
+        <button class="modal__close-button" type="button">
+          <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
+        </button>
+        <h2 class="modal__title">Edit profile</h2>
+        <form class="form" name="form">
+          <input class="form__input" id="form-name" type="text" name="form-name" autocomplete="off">
+          <input class="form__input" id="form-caption" type="text" name="form-caption" autocomplete="off">
+          <button class="form__submit" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
 
-    <template id="modal-template">
-      <section class="modal">
-        <div class="modal__body">
-          <button class="modal__close-button" type="button">
-            <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
-          </button>
-          <h2 class="modal__title"></h2>
-          <form class="form" name="form">
-            <input class="form__input" id="form-name" type="text" name="form-name" autocomplete="off">
-            <input class="form__input" id="form-caption" type="text" name="form-caption" autocomplete="off">
-            <button class="form__submit" type="submit"></button>
-          </form>
-        </div>
-      </section>
-    </template>
+    <div class="modal modal_closed" id="add">
+      <div class="modal__body modal__body_input">
+        <button class="modal__close-button" type="button">
+          <img class="modal__close-button-image" src="images/x-button.svg" alt="exit button">
+        </button>
+        <h2 class="modal__title">New place</h2>
+        <form class="form" name="form">
+          <input class="form__input" id="form-title" type="text" name="form-title" placeholder="Title" autocomplete="off">
+          <input class="form__input" id="form-link" type="text" name="form-link" placeholder="Image link" autocomplete="off">
+          <button class="form__submit" type="submit">Create</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal modal_closed" id="img">
+      <div class="modal__body">
+        <button class="modal__close-button"></button>
+        <img class="modal__img-content" src="#" alt="card image">
+        <p class="modal__img-caption"></p>
+      </div>
+    </div> 
   
     <section class="cards">
       <template id="card-template">
         <div class="card">
           <button class="card__delete" type="button"></button>
-          <img class="card__image" src="#" alt="image post">
+          <img class="card__image" src="#" alt="#">
           <div class="card__details">
             <h2 class="card__title"></h2>
             <button class="card__like-button" type="button"></button>
-          </div>
-        </div>
-      </template>
-
-      <template id="img-template">
-        <div class="img-popup">
-          <div class="img-popup__container">
-            <button class="img-popup__close"></button>
-            <img class="img-popup__content" src="#" alt="card image">
-            <p class="img-popup__title"></p>
           </div>
         </div>
       </template>

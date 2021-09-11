@@ -11,11 +11,14 @@
 @import url(../blocks/profile/profile.css);
 
 @import url(../blocks/modal/modal.css);
-@import url(../blocks/modal/_open/modal_open.css);
+@import url(../blocks/modal/_closed/modal_closed.css);
 @import url(../blocks/modal/__body/modal__body.css);
+@import url(../blocks/modal/__body/_input/modal__body_input.css);
 @import url(../blocks/modal/__close-button/modal__close-button.css);
 @import url(../blocks/modal/__close-button-image/modal__close-button-image.css);
 @import url(../blocks/modal/__title/modal__title.css);
+@import url(../blocks/modal/__img-content/modal__img-content.css);
+@import url(../blocks/modal/__img-caption/modal__img-caption.css);
 
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__input/form__input.css);
@@ -44,12 +47,6 @@
 @import url(../blocks/card/__like-button/card__like-button.css);
 @import url(../blocks/card/__like-button/__a/card__like-button_a.css);
 @import url(../blocks/card/__like-image/card__like-image.css);
-
-@import url(../blocks/img-popup/img-popup.css);
-@import url(../blocks/img-popup/__container/img-popup__container.css);
-@import url(../blocks/img-popup/__close/img-popup__close.css);
-@import url(../blocks/img-popup/__content/img-popup__content.css);
-@import url(../blocks/img-popup/__title/img-popup__title.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

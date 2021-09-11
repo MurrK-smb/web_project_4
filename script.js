@@ -1,11 +1,17 @@
 
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
+const closeBtns = Array.from(document.querySelectorAll('.modal__close-button'))
+const editModal = document.querySelector('#edit')
+const addModal = document.querySelector('#add')
+const imgModal = document.querySelector('#img')
 const infoName = document.querySelector('.info__name')
 const infoCaption = document.querySelector('.info__caption')
-const imgTemplate = document.querySelector('#img-template').content
+const formName = document.querySelector('#form-name')
+const formCaption = document.querySelector('#form-caption')
+const formTitle = document.querySelector('#form-title')
+const formLink = document.querySelector('#form-link')
 const cardTemplate = document.querySelector('#card-template').content
-const modalTemplate = document.querySelector('#modal-template').content
 const cards = [
   {name: "Yosemite Valley", link: "images/card-image1.png"},
   {name: "Lake Lousie", link: "images/card-image2.png"},
@@ -14,71 +20,59 @@ const cards = [
   {name: "Vanoise National Park", link: "images/card-image5.png"},
   {name: "Lago di Braise", link: "images/card-image6.png"}
 ]
+const cardColl = document.querySelector('.cards')
 
-function fadeOut(t) {
-  t.classList.add('fade-out')
-  setTimeout(function() {t.remove()}, 250)
+function openModal(modal) {
+  modal.classList.remove('modal_closed')
 }
 
-function createCard(c) {
+function closeModal(e) {
+  const modal = e.target.closest('.modal')
+  modal.classList.add('fade-out')
+  setTimeout(function() {
+    modal.classList.add('modal_closed')
+    modal.classList.remove('fade-out')
+  }, 250)
+}
+
+function createCard(cardData) {
   const card = cardTemplate.querySelector('.card').cloneNode(true)
-  card.querySelector('.card__image').setAttribute('src', c.link)
-  card.querySelector('.card__title').textContent = c.name
-  card.querySelector('.card__like-button').addEventListener('click', function(e) {
-    e.target.classList.toggle('card__like-button_a')
+  card.querySelector('.card__image').setAttribute('src', cardData.link)
+  card.querySelector('.card__title').textContent = cardData.name
+  
+  card.querySelector('.card__like-button').addEventListener('click', function(e) {e.target.classList.toggle('card__like-button_a')})
+  card.querySelector('.card__delete').addEventListener('click', function(e) {e.target.closest('.card').remove()})
+  card.querySelector('.card__image').addEventListener('click', function() {
+    openModal(imgModal)
+    imgModal.querySelector('.modal__img-content').setAttribute('src', cardData.link)
+    imgModal.querySelector('.modal__img-content').setAttribute('alt', cardData.link)
+    imgModal.querySelector('.modal__img-caption').textContent = cardData.name
   })
-  card.querySelector('.card__delete').addEventListener('click', function(e) {
-    e.target.closest('.card').remove()
-  })
-  card.querySelector('.card__image').addEventListener('click', function(e) {
-    const imgPopup = imgTemplate.querySelector('.img-popup').cloneNode(true)
-    imgPopup.querySelector('.img-popup__content').src = e.target.getAttribute('src')
-    imgPopup.querySelector('.img-popup__title').textContent = card.querySelector('.card__title').textContent
-    card.append(imgPopup)
-    imgPopup.querySelector('.img-popup__close').addEventListener('click', function(e) {
-      fadeOut(e.target.closest('.img-popup'))
-    })
-  })
-  document.querySelector('.cards').append(card)
+  return card
 }
 
-function openModal(title, btn, input) {
-  const modal = modalTemplate.querySelector('.modal').cloneNode(true)
-  const formName = modal.querySelector('#form-name')
-  const closeBtn = modal.querySelector('.modal__close-button')
-  const formCaption = modal.querySelector('#form-caption')
-  const form = modal.querySelector('.form')
-  modal.querySelector('.modal__title').textContent = title
-  modal.querySelector('.form__submit').textContent = btn
-  closeBtn.addEventListener('click', function() {
-    fadeOut(modal)
-  })
-  if(input) {
-    formName.value = infoName.textContent
-    formCaption.value = infoCaption.textContent
-    form.addEventListener('submit', function(e) {
-      e.preventDefault()
-      infoName.textContent = formName.value
-      infoCaption.textContent = formCaption.value
-      fadeOut(modal)
-    })
-  }
-  else {
-    formName.setAttribute('placeholder', 'Title')
-    formCaption.setAttribute('placeholder', 'Image link')
-    form.addEventListener('submit', function(e) {
-      e.preventDefault()
-      cards.push({name: formName.value, link: formCaption.value})
-      createCard(cards[cards.length - 1])
-      fadeOut(modal)
-    })
-  }
-  document.querySelector('.page').append(modal)
-}
-
-cards.forEach(function(x) {
-  createCard(x)
+cards.forEach(function(cardData) {
+  cardColl.append(createCard(cardData))
 })
 
-editBtn.addEventListener('click', function() {openModal('Edit profile', 'Save', true)}, false)
-addBtn.addEventListener('click', function() {openModal('New place', 'Create', false)}, false)
+formName.value = infoName.textContent
+formCaption.value = infoCaption.textContent
+
+editBtn.addEventListener('click', function() {openModal(editModal)})
+addBtn.addEventListener('click', function() {openModal(addModal)})
+closeBtns.forEach(function(closeBtn) {
+  closeBtn.addEventListener('click', closeModal)
+})
+editModal.querySelector('.form').addEventListener('submit', function(e) {
+  e.preventDefault()
+  infoName.textContent = formName.value
+  infoCaption.textContent = formCaption.value
+  closeModal(e)
+})
+addModal.querySelector('.form').addEventListener('submit', function(e) {
+  e.preventDefault()
+  const newCard = {name: formTitle.value, link: formLink.value}
+  cards.push(newCard)
+  cardColl.prepend(createCard(newCard))
+  closeModal(e)
+})
