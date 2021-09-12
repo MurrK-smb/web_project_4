@@ -40,6 +40,7 @@ function createCard(cardData) {
   const cardImage = card.querySelector('.card__image')
   
   cardImage.setAttribute('src', cardData.link)
+  cardImage.setAttribute('alt', cardData.name)
   card.querySelector('.card__title').textContent = cardData.name
   
   card.querySelector('.card__like-button').addEventListener('click', function(e) {e.target.classList.toggle('card__like-button_a')})
@@ -78,5 +79,7 @@ addModal.querySelector('.form').addEventListener('submit', function(e) {
   e.preventDefault()
   const newCard = {name: formTitle.value, link: formLink.value}
   cardColl.prepend(createCard(newCard))
+  formTitle.value = ''
+  formLink.value = ''
   closeModal(addModal)
 })
