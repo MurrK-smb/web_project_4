@@ -2,6 +2,7 @@
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
 const closeBtns = Array.from(document.querySelectorAll('.modal__close-button'))
+const modals = [...document.querySelectorAll('.modal')]
 const editModal = document.querySelector('#edit')
 const addModal = document.querySelector('#add')
 const imgModal = document.querySelector('#img')
@@ -42,32 +43,22 @@ function createCard(cardData) {
   return card
 }
 
-function addCloseFunctions(modal) {
-  modal.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) {
-      closeModal(modal)
-    }
+function setInitialState(modal) {
+  const errorList = [...modal.querySelectorAll('.form__validation')]
+  const inputList = [...modal.querySelectorAll('.form__input')]
+  errorList.forEach((error) => {
+    error.classList.remove('form__input-error')
+    error.textContent = ''
   })
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeModal(modal)
-    }
-  })
-}
-
-function checkInitialState(modal) {
-  const form = modal.querySelector('.form')
-  const inputList = [...form.querySelectorAll('.form__input')]
-  const submit = form.querySelector('.form__submit')
   inputList.forEach((input) => {
-    checkValidity(form, input, settings)
+    input.classList.remove('form__input_error')
   })
-  toggleButton(inputList, submit, settings)
 }
 
 function openModal(modal) {
   modal.classList.add('modal_open')
-  addCloseFunctions(modal)
+  document.addEventListener('keydown', closeByEscape)
+  setInitialState(modal)
 }
 
 function closeModal(modal) {
@@ -76,7 +67,27 @@ function closeModal(modal) {
     modal.classList.remove('modal_open')
     modal.classList.remove('fade-out')
   }, 250)
+  document.removeEventListener('keydown', closeByEscape)
 }
+
+function closeByEscape(e) {
+  if (e.key === 'Escape') {
+    const openedModal = document.querySelector('.modal_open')
+    closeModal(openedModal)
+  }
+}
+
+function closeByClick(modal) {
+  modal.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal(modal)
+    }
+  })
+}
+
+modals.forEach((modal) => {
+  closeByClick(modal)
+})
 
 cards.forEach(function(cardData) {
   cardColl.append(createCard(cardData))
@@ -86,12 +97,12 @@ editBtn.addEventListener('click', function() {
   openModal(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
-  checkInitialState(editModal)
+  // setInitialState(editModal)
 })
 
 addBtn.addEventListener('click', function() {
   openModal(addModal)
-  checkInitialState(addModal)
+  // setInitialState(addModal)
 })
 
 closeBtns.forEach(function(closeBtn) {
