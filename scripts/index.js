@@ -23,18 +23,6 @@ const cards = [
 ]
 const cardColl = document.querySelector('.cards')
 
-function openModal(modal) {
-  modal.classList.add('modal_open')
-}
-
-function closeModal(modal) {
-  modal.classList.add('fade-out')
-  setTimeout(function() {
-    modal.classList.remove('modal_open')
-    modal.classList.remove('fade-out')
-  }, 250)
-}
-
 function createCard(cardData) {
   const card = cardTemplate.querySelector('.card').cloneNode(true)
   const cardImage = card.querySelector('.card__image')
@@ -54,6 +42,42 @@ function createCard(cardData) {
   return card
 }
 
+function addCloseFunctions(modal) {
+  modal.addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal(modal)
+    }
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal(modal)
+    }
+  })
+}
+
+function checkInitialState(modal) {
+  const form = modal.querySelector('.form')
+  const inputList = [...form.querySelectorAll('.form__input')]
+  const submit = form.querySelector('.form__submit')
+  inputList.forEach((input) => {
+    checkValidity(form, input, settings)
+  })
+  toggleButton(inputList, submit, settings)
+}
+
+function openModal(modal) {
+  modal.classList.add('modal_open')
+  addCloseFunctions(modal)
+}
+
+function closeModal(modal) {
+  modal.classList.add('fade-out')
+  setTimeout(function() {
+    modal.classList.remove('modal_open')
+    modal.classList.remove('fade-out')
+  }, 250)
+}
+
 cards.forEach(function(cardData) {
   cardColl.append(createCard(cardData))
 })
@@ -62,19 +86,27 @@ editBtn.addEventListener('click', function() {
   openModal(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
+  checkInitialState(editModal)
 })
-addBtn.addEventListener('click', function() {openModal(addModal)})
+
+addBtn.addEventListener('click', function() {
+  openModal(addModal)
+  checkInitialState(addModal)
+})
+
 closeBtns.forEach(function(closeBtn) {
   closeBtn.addEventListener('click', function() {
     closeModal(this.closest('.modal'))
   })
 })
+
 editModal.querySelector('.form').addEventListener('submit', function(e) {
   e.preventDefault()
   infoName.textContent = formName.value
   infoCaption.textContent = formCaption.value
   closeModal(editModal)
 })
+
 addModal.querySelector('.form').addEventListener('submit', function(e) {
   e.preventDefault()
   const newCard = {name: formTitle.value, link: formLink.value}
