@@ -46,6 +46,7 @@ function createCard(cardData) {
 function setInitialState(modal) {
   const errorList = [...modal.querySelectorAll('.form__validation')]
   const inputList = [...modal.querySelectorAll('.form__input')]
+  const submit = modal.querySelector('.form__submit')
   errorList.forEach((error) => {
     error.classList.remove('form__input-error')
     error.textContent = ''
@@ -53,12 +54,16 @@ function setInitialState(modal) {
   inputList.forEach((input) => {
     input.classList.remove('form__input_error')
   })
+  if (modal === addModal) {
+    toggleButton(inputList, submit, settings)
+  } else {
+    submit.classList.remove('form__submit_disabled')
+  }
 }
 
 function openModal(modal) {
   modal.classList.add('modal_open')
   document.addEventListener('keydown', closeByEscape)
-  setInitialState(modal)
 }
 
 function closeModal(modal) {
@@ -97,10 +102,12 @@ editBtn.addEventListener('click', function() {
   openModal(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
+  setInitialState(editModal)
 })
 
 addBtn.addEventListener('click', function() {
   openModal(addModal)
+  setInitialState(addModal)
 })
 
 closeBtns.forEach(function(closeBtn) {

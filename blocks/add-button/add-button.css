@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.add-button:focus {
+  outline: none;
+}
+
 @media screen and (max-width: 785px) {
   .add-button {
     width: 45px;
