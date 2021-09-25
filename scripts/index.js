@@ -97,12 +97,10 @@ editBtn.addEventListener('click', function() {
   openModal(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
-  // setInitialState(editModal)
 })
 
 addBtn.addEventListener('click', function() {
   openModal(addModal)
-  // setInitialState(addModal)
 })
 
 closeBtns.forEach(function(closeBtn) {
