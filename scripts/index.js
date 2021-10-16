@@ -1,4 +1,7 @@
 
+import FormValidator from './FormValidator.js'
+import Card from './Card.js'
+
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
 const closeBtns = Array.from(document.querySelectorAll('.modal__close-button'))
@@ -13,6 +16,23 @@ const formName = document.querySelector('#form-name')
 const formCaption = document.querySelector('#form-caption')
 const formTitle = document.querySelector('#form-title')
 const formLink = document.querySelector('#form-link')
+
+//Add form validator to all forms----------------------------
+const forms = [...document.querySelectorAll('.form')]
+const config = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_disabled',
+  inputErrorClass: 'form__input_error',
+  errorClass: 'form__input-error'
+}
+forms.forEach((form) => {
+  new FormValidator(config, form).enableValidation()
+})
+
+//Add cards---------------------------------------------------
+const cardContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('#card-template').content
 const cards = [
   {name: "Yosemite Valley", link: "images/card-image1.png"},
@@ -22,27 +42,11 @@ const cards = [
   {name: "Vanoise National Park", link: "images/card-image5.png"},
   {name: "Lago di Braise", link: "images/card-image6.png"}
 ]
-const cardColl = document.querySelector('.cards')
+cards.forEach((cardData) => {
+  cardContainer.append(new Card(cardData, cardTemplate).createCard())
+})
 
-function createCard(cardData) {
-  const card = cardTemplate.querySelector('.card').cloneNode(true)
-  const cardImage = card.querySelector('.card__image')
-  
-  cardImage.setAttribute('src', cardData.link)
-  cardImage.setAttribute('alt', cardData.name)
-  card.querySelector('.card__title').textContent = cardData.name
-  
-  card.querySelector('.card__like-button').addEventListener('click', function(e) {e.target.classList.toggle('card__like-button_a')})
-  card.querySelector('.card__delete').addEventListener('click', function(e) {e.target.closest('.card').remove()})
-  cardImage.addEventListener('click', function() {
-    openModal(imgModal)
-    imgModalCon.setAttribute('src', cardData.link)
-    imgModalCon.setAttribute('alt', cardData.name)
-    imgModal.querySelector('.modal__img-caption').textContent = cardData.name
-  })
-  return card
-}
-
+//Set state of Form when opened-------------------------------
 function setInitialState(modal) {
   const errorList = [...modal.querySelectorAll('.form__validation')]
   const inputList = [...modal.querySelectorAll('.form__input')]
@@ -55,7 +59,8 @@ function setInitialState(modal) {
     input.classList.remove('form__input_error')
   })
   if (modal === addModal) {
-    toggleButton(inputList, submit, settings)
+    submit.classList.add('form__submit_disabled')
+    submit.disabled = true
   } else {
     submit.classList.remove('form__submit_disabled')
   }
@@ -68,7 +73,7 @@ function openModal(modal) {
 
 function closeModal(modal) {
   modal.classList.add('fade-out')
-  setTimeout(function() {
+  setTimeout(() => {
     modal.classList.remove('modal_open')
     modal.classList.remove('fade-out')
   }, 250)
@@ -94,9 +99,6 @@ modals.forEach((modal) => {
   closeByClick(modal)
 })
 
-cards.forEach(function(cardData) {
-  cardColl.append(createCard(cardData))
-})
 
 editBtn.addEventListener('click', function() {
   openModal(editModal)
@@ -126,8 +128,9 @@ editModal.querySelector('.form').addEventListener('submit', function(e) {
 addModal.querySelector('.form').addEventListener('submit', function(e) {
   e.preventDefault()
   const newCard = {name: formTitle.value, link: formLink.value}
-  cardColl.prepend(createCard(newCard))
+  cardContainer.prepend(new Card(newCard, cardTemplate).createCard())
   formTitle.value = ''
   formLink.value = ''
   closeModal(addModal)
 })
+
