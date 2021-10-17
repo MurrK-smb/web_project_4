@@ -1,14 +1,14 @@
 
 import FormValidator from './FormValidator.js'
 import Card from './Card.js'
+import {cards} from './cards.js'
+import {openModal, closeModal, closeByEscape, closeByClick} from './utils.js'
 
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
 const closeBtns = Array.from(document.querySelectorAll('.modal__close-button'))
-const modals = [...document.querySelectorAll('.modal')]
 const editModal = document.querySelector('#edit')
 const addModal = document.querySelector('#add')
-const imgModal = document.querySelector('#img')
 const infoName = document.querySelector('.info__name')
 const infoCaption = document.querySelector('.info__caption')
 const formName = document.querySelector('#form-name')
@@ -30,19 +30,17 @@ forms.forEach((form) => {
 })
 
 const cardContainer = document.querySelector('.cards')
-const cardTemplate = document.querySelector('#card-template').content
-const cards = [
-  {name: "Yosemite Valley", link: "images/card-image1.png"},
-  {name: "Lake Lousie", link: "images/card-image2.png"},
-  {name: "Bald Mountains", link: "images/card-image3.png"},
-  {name: "Latemar", link: "images/card-image4.png"},
-  {name: "Vanoise National Park", link: "images/card-image5.png"},
-  {name: "Lago di Braise", link: "images/card-image6.png"}
-]
 cards.forEach((cardData) => {
-  cardContainer.append(new Card(cardData, cardTemplate).createCard())
+  cardContainer.append(new Card(cardData, '#card-template').createCard())
 })
 
+//To my reviewer.
+//The setInitialState() function is for clearing all error messages.
+//It's called as an event handler when opening form popups.
+//Since this handler is attached to the edit and add buttons to make sure the forms are clear when the user opens them,
+//how do I make this function a part of the FormValidator class?
+//(Or what is an alternative way of making sure the forms are clear of error messages when the user opens them?)
+//Sorry to ask this way
 function setInitialState(modal) {
   const errorList = [...modal.querySelectorAll('.form__validation')]
   const inputList = [...modal.querySelectorAll('.form__input')]
@@ -62,71 +60,38 @@ function setInitialState(modal) {
   }
 }
 
-function openModal(modal) {
-  modal.classList.add('modal_open')
-  document.addEventListener('keydown', closeByEscape)
-}
-
-function closeModal(modal) {
-  modal.classList.add('fade-out')
-  setTimeout(() => {
-    modal.classList.remove('modal_open')
-    modal.classList.remove('fade-out')
-  }, 250)
-  document.removeEventListener('keydown', closeByEscape)
-}
-
-function closeByEscape(e) {
-  if (e.key === 'Escape') {
-    const openedModal = document.querySelector('.modal_open')
-    closeModal(openedModal)
-  }
-}
-
-function closeByClick(modal) {
-  modal.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) {
-      closeModal(modal)
-    }
-  })
-}
-
-modals.forEach((modal) => {
-  closeByClick(modal)
-})
-
-
-editBtn.addEventListener('click', function() {
+editBtn.addEventListener('click', () => {
   openModal(editModal)
+  closeByClick(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
   setInitialState(editModal)
 })
 
-addBtn.addEventListener('click', function() {
+addBtn.addEventListener('click', () => {
   openModal(addModal)
+  closeByClick(addModal)
   setInitialState(addModal)
 })
 
-closeBtns.forEach(function(closeBtn) {
-  closeBtn.addEventListener('click', function() {
-    closeModal(this.closest('.modal'))
+closeBtns.forEach((closeBtn) => {
+  closeBtn.addEventListener('click', () => {
+    closeModal(closeBtn.closest('.modal'))
   })
 })
 
-editModal.querySelector('.form').addEventListener('submit', function(e) {
-  e.preventDefault()
+editModal.querySelector('.form').addEventListener('submit', () => {
   infoName.textContent = formName.value
   infoCaption.textContent = formCaption.value
   closeModal(editModal)
 })
 
-addModal.querySelector('.form').addEventListener('submit', function(e) {
-  e.preventDefault()
+const addForm = addModal.querySelector('.form')
+
+addModal.querySelector('.form').addEventListener('submit', () => {
   const newCard = {name: formTitle.value, link: formLink.value}
-  cardContainer.prepend(new Card(newCard, cardTemplate).createCard())
-  formTitle.value = ''
-  formLink.value = ''
+  cardContainer.prepend(new Card(newCard, '#card-template').createCard())
+  addForm.reset()
   closeModal(addModal)
 })
 

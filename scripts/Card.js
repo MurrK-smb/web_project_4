@@ -1,66 +1,43 @@
 
+import {openModal, closeModal, closeByEscape, closeByClick} from './utils.js'
+
 class Card {
-  constructor(cardData, cardTemplate) {
+  constructor(cardData, cardSelector) {
     this._name = cardData.name
     this._link = cardData.link
-    this._cardTemplate = cardTemplate
+    this._cardSelector = cardSelector
   }
 
-  _closePopupImg(imgModal) {
-    imgModal.classList.add('fade-out')
-    setTimeout(() => {
-      imgModal.classList.remove('modal_open')
-      imgModal.classList.remove('fade-out')
-    }, 250)
-  }
-
-  _closeByEscape(e) {
-    if (e.key === 'Escape') {
-      this._closePopupImg(document.querySelector('.modal_open'))
-    }
-  }
-
-  _openPopupImg(imgModal) {
-    const imgModalContent = imgModal.querySelector('.modal__img-content')
-    imgModal.classList.add('modal_open')
-    imgModalContent.setAttribute('src', this._link)
-    imgModalContent.setAttribute('alt', this._name)
-    imgModal.querySelector('.modal__img-caption').textContent = this._name
-    document.addEventListener('keydown', (e) => {
-      this._closeByEscape(e)
-    })
-  }
-
-  _setEventListeners(card, cardImage) {
+  _setEventListeners() {
     const imgModal = document.querySelector('#img')
-    card.querySelector('.card__like-button').addEventListener('click', (e) => {
+    const imgModalContent = imgModal.querySelector('.modal__img-content')
+    this._cardElement.querySelector('.card__like-button').addEventListener('click', (e) => {
       e.target.classList.toggle('card__like-button_a')
     })
-    card.querySelector('.card__delete').addEventListener('click', (e) => {
+    this._cardElement.querySelector('.card__delete').addEventListener('click', (e) => {
       e.target.closest('.card').remove()
     })
-    cardImage.addEventListener('click', () => {
-      this._openPopupImg(imgModal)
+    this._cardImage.addEventListener('click', () => {
+      openModal(imgModal)
+      imgModalContent.setAttribute('src', this._link)
+      imgModalContent.setAttribute('alt', this._name)
+      imgModal.querySelector('.modal__img-caption').textContent = this._name
     })
-    imgModal.addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) {
-        this._closePopupImg(imgModal)
-      }
-    })
+    closeByClick(imgModal)
   }
 
-  _populateCard() {
-    const card = this._cardTemplate.querySelector('.card').cloneNode(true)
-    const cardImage = card.querySelector('.card__image')
-    cardImage.setAttribute('alt', this._name)
-    cardImage.setAttribute('src', this._link)
-    card.querySelector('.card__title').textContent = this._name
-    this._setEventListeners(card, cardImage)
-    return card
+  _getCardElement() {
+    return document.querySelector(this._cardSelector).content.cloneNode(true)
   }
 
   createCard() {
-    return this._populateCard()
+    this._cardElement = this._getCardElement()
+    this._cardImage = this._cardElement.querySelector('.card__image')
+    this._cardElement.querySelector('.card__title').textContent = this._name
+    this._cardImage.setAttribute('alt', this._name)
+    this._cardImage.setAttribute('src', this._link)
+    this._setEventListeners()
+    return this._cardElement
   }
 }
 

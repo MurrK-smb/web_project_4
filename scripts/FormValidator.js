@@ -44,7 +44,9 @@ class FormValidator {
         this._toggleButton(inputList, submit)
       })
     })
-    
+    this._formElement.addEventListener('submit', (e) => {
+      e.preventDefault()
+    })
   }
 
   enableValidation() {
