@@ -9,7 +9,6 @@ const modals = [...document.querySelectorAll('.modal')]
 const editModal = document.querySelector('#edit')
 const addModal = document.querySelector('#add')
 const imgModal = document.querySelector('#img')
-const imgModalCon = imgModal.querySelector('.modal__img-content')
 const infoName = document.querySelector('.info__name')
 const infoCaption = document.querySelector('.info__caption')
 const formName = document.querySelector('#form-name')
@@ -17,7 +16,6 @@ const formCaption = document.querySelector('#form-caption')
 const formTitle = document.querySelector('#form-title')
 const formLink = document.querySelector('#form-link')
 
-//Add form validator to all forms----------------------------
 const forms = [...document.querySelectorAll('.form')]
 const config = {
   formSelector: '.form',
@@ -31,7 +29,6 @@ forms.forEach((form) => {
   new FormValidator(config, form).enableValidation()
 })
 
-//Add cards---------------------------------------------------
 const cardContainer = document.querySelector('.cards')
 const cardTemplate = document.querySelector('#card-template').content
 const cards = [
@@ -46,7 +43,6 @@ cards.forEach((cardData) => {
   cardContainer.append(new Card(cardData, cardTemplate).createCard())
 })
 
-//Set state of Form when opened-------------------------------
 function setInitialState(modal) {
   const errorList = [...modal.querySelectorAll('.form__validation')]
   const inputList = [...modal.querySelectorAll('.form__input')]
