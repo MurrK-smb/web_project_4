@@ -34,37 +34,16 @@ cards.forEach((cardData) => {
   cardContainer.append(new Card(cardData, '#card-template').createCard())
 })
 
-function setInitialState(modal) {
-  const errorList = [...modal.querySelectorAll('.form__validation')]
-  const inputList = [...modal.querySelectorAll('.form__input')]
-  const submit = modal.querySelector('.form__submit')
-  errorList.forEach((error) => {
-    error.classList.remove('form__input-error')
-    error.textContent = ''
-  })
-  inputList.forEach((input) => {
-    input.classList.remove('form__input_error')
-  })
-  if (modal === addModal) {
-    submit.classList.add('form__submit_disabled')
-    submit.disabled = true
-  } else {
-    submit.classList.remove('form__submit_disabled')
-  }
-}
-
 editBtn.addEventListener('click', () => {
   openModal(editModal)
   setCloseByClickListener(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
-  setInitialState(editModal)
 })
 
 addBtn.addEventListener('click', () => {
   openModal(addModal)
   setCloseByClickListener(addModal)
-  setInitialState(addModal)
 })
 
 closeBtns.forEach((closeBtn) => {
