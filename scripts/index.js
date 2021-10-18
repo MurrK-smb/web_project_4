@@ -2,7 +2,7 @@
 import FormValidator from './FormValidator.js'
 import Card from './Card.js'
 import {cards} from './cards.js'
-import {openModal, closeModal, closeByEscape, closeByClick} from './utils.js'
+import {openModal, closeModal, closeByEscape, setCloseByClickListener} from './utils.js'
 
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
@@ -34,13 +34,6 @@ cards.forEach((cardData) => {
   cardContainer.append(new Card(cardData, '#card-template').createCard())
 })
 
-//To my reviewer.
-//The setInitialState() function is for clearing all error messages.
-//It's called as an event handler when opening form popups.
-//Since this handler is attached to the edit and add buttons to make sure the forms are clear when the user opens them,
-//how do I make this function a part of the FormValidator class?
-//(Or what is an alternative way of making sure the forms are clear of error messages when the user opens them?)
-//Sorry to ask this way
 function setInitialState(modal) {
   const errorList = [...modal.querySelectorAll('.form__validation')]
   const inputList = [...modal.querySelectorAll('.form__input')]
@@ -62,7 +55,7 @@ function setInitialState(modal) {
 
 editBtn.addEventListener('click', () => {
   openModal(editModal)
-  closeByClick(editModal)
+  setCloseByClickListener(editModal)
   formName.value = infoName.textContent
   formCaption.value = infoCaption.textContent
   setInitialState(editModal)
@@ -70,7 +63,7 @@ editBtn.addEventListener('click', () => {
 
 addBtn.addEventListener('click', () => {
   openModal(addModal)
-  closeByClick(addModal)
+  setCloseByClickListener(addModal)
   setInitialState(addModal)
 })
 
@@ -88,7 +81,7 @@ editModal.querySelector('.form').addEventListener('submit', () => {
 
 const addForm = addModal.querySelector('.form')
 
-addModal.querySelector('.form').addEventListener('submit', () => {
+addForm.addEventListener('submit', () => {
   const newCard = {name: formTitle.value, link: formLink.value}
   cardContainer.prepend(new Card(newCard, '#card-template').createCard())
   addForm.reset()

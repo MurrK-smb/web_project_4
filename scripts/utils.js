@@ -20,7 +20,7 @@ function closeByEscape(e) {
   }
 }
 
-function closeByClick(modal) {
+function setCloseByClickListener(modal) {
   modal.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
       closeModal(modal)
@@ -28,4 +28,4 @@ function closeByClick(modal) {
   })
 }
 
-export {openModal, closeModal, closeByEscape, closeByClick}
+export {openModal, closeModal, closeByEscape, setCloseByClickListener}
