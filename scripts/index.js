@@ -2,7 +2,7 @@
 import FormValidator from './FormValidator.js'
 import Card from './Card.js'
 import {cards} from './cards.js'
-import {openModal, closeModal, closeByEscape, setCloseByClickListener} from './utils.js'
+import {openModal, closeModal, setCloseByClickListener} from './utils.js'
 
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')

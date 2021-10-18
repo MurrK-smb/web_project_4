@@ -1,5 +1,5 @@
 
-import {openModal, closeModal, closeByEscape, setCloseByClickListener} from './utils.js'
+import {openModal, setCloseByClickListener} from './utils.js'
 
 class Card {
   constructor(cardData, cardSelector) {
@@ -12,6 +12,11 @@ class Card {
     imgModalContent.setAttribute('src', this._link)
     imgModalContent.setAttribute('alt', this._name)
     imgModal.querySelector('.modal__img-caption').textContent = this._name
+  }
+
+  _openPopupImg(imgModal, imgModalContent) {
+    openModal(imgModal)
+    this._setModalData(imgModal, imgModalContent)
   }
 
   _deleteCard(e) {
@@ -27,10 +32,7 @@ class Card {
     const imgModalContent = imgModal.querySelector('.modal__img-content')
     this._cardElement.querySelector('.card__like-button').addEventListener('click', this._toggleLikeButton)
     this._cardElement.querySelector('.card__delete').addEventListener('click', this._deleteCard)
-    this._cardImage.addEventListener('click', () => {
-      openModal(imgModal)
-      this._setModalData(imgModal, imgModalContent)
-    })
+    this._cardImage.addEventListener('click', this._openPopupImg.bind(this, imgModal, imgModalContent))
     setCloseByClickListener(imgModal)
   }
 

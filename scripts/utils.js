@@ -28,4 +28,4 @@ function setCloseByClickListener(modal) {
   })
 }
 
-export {openModal, closeModal, closeByEscape, setCloseByClickListener}
+export {openModal, closeModal, setCloseByClickListener}
