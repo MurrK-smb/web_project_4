@@ -1,13 +1,13 @@
 
-class FormValidator {
-  constructor(config, formElement) {
+export default class FormValidator {
+  constructor(config, formSelector) {
     this._formSelector = config.formSelector
     this._inputSelector = config.inputSelector
     this._submitButtonSelector = config.submitButtonSelector
     this._inactiveButtonClass = config.inactiveButtonClass
     this._inputErrorClass = config.inputErrorClass
     this._errorClass = config.errorClass
-    this._formElement = formElement
+    this._formElement = document.querySelector(formSelector)
   }
 
   _checkValidity(input) {
@@ -53,5 +53,3 @@ class FormValidator {
     this._setEventListeners()
   }
 }
-
-export default FormValidator

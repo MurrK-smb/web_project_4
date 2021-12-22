@@ -6,7 +6,9 @@ const path = require("path")
 
 module.exports = {
   devtool: 'inline-source-map',
-  entry: "./src/pages/index.js",
+  entry: {
+    main: "./src/pages/index.js"
+  },
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
@@ -42,7 +44,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpg)$/i,
+        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
         type: "asset/resource"
       },
     ],

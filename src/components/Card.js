@@ -1,16 +1,17 @@
 
-import {openModal, setCloseByClickListener} from './utils.js'
+// import {openModal, setCloseByClickListener} from './utils.js'
 
 class Card {
-  constructor(cardData, cardSelector) {
-    this._name = cardData.name
-    this._link = cardData.link
-    this._cardSelector = cardSelector
+  constructor({ data, handleImageClick }, selector) {
+    this._name = data.name
+    this._link = data.link
+    this._selector = selector
+    this._handleImageClick = handleImageClick
   }
 
   _setModalData(imgModal, imgModalContent) {
-    imgModalContent.setAttribute('src', this._link)
-    imgModalContent.setAttribute('alt', this._name)
+    imgModalContent.src = this._link
+    imgModalContent.alt = this._name
     imgModal.querySelector('.modal__img-caption').textContent = this._name
   }
 
@@ -28,24 +29,21 @@ class Card {
   }
 
   _setEventListeners() {
-    const imgModal = document.querySelector('#img')
-    const imgModalContent = imgModal.querySelector('.modal__img-content')
     this._cardElement.querySelector('.card__like-button').addEventListener('click', this._toggleLikeButton)
     this._cardElement.querySelector('.card__delete').addEventListener('click', this._deleteCard)
-    this._cardImage.addEventListener('click', this._openPopupImg.bind(this, imgModal, imgModalContent))
-    setCloseByClickListener(imgModal)
+    this._cardImage.addEventListener('click', () => this._handleImageClick({name: this._name, link: this._link}))
   }
 
   _getCardElement() {
-    return document.querySelector(this._cardSelector).content.cloneNode(true)
+    return document.querySelector(this._selector).content.cloneNode(true)
   }
 
   createCard() {
     this._cardElement = this._getCardElement()
     this._cardImage = this._cardElement.querySelector('.card__image')
     this._cardElement.querySelector('.card__title').textContent = this._name
-    this._cardImage.setAttribute('alt', this._name)
-    this._cardImage.setAttribute('src', this._link)
+    this._cardImage.alt = this._name
+    this._cardImage.src = this._link
     this._setEventListeners()
     return this._cardElement
   }

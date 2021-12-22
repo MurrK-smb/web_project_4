@@ -1,8 +1,9 @@
+import './index.css'
 
-import FormValidator from './FormValidator.js'
-import Card from './Card.js'
-import {cards} from './cards.js'
-import {openModal, closeModal, setCloseByClickListener} from './utils.js'
+import FormValidator from '../components/FormValidator.js'
+import Card from '../components/Card.js'
+import {cards} from '../components/constants.js'
+import {openModal, closeModal, setCloseByClickListener} from '../components/utils.js'
 
 const editBtn = document.querySelector('.info__edit-button')
 const addBtn = document.querySelector('.add-button')
@@ -30,6 +31,7 @@ forms.forEach((form) => {
 })
 
 const cardContainer = document.querySelector('.cards')
+
 cards.forEach((cardData) => {
   cardContainer.append(new Card(cardData, '#card-template').createCard())
 })
@@ -66,4 +68,3 @@ addForm.addEventListener('submit', () => {
   addForm.reset()
   closeModal(addModal)
 })
-
