@@ -12,15 +12,14 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: '',
     clean: true,
   },
   target: ['web', 'es5'],
   stats: { children: true },
   mode: "development",
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
-    compress: true,
+    static: './dist',
+    port: 8080,
     open: true
   },
   module: {
@@ -28,7 +27,7 @@ module.exports = {
       {
         test: /\.js$/i,
         loader: "babel-loader",
-        exclude: "/node_modules/"
+        exclude: /node_modules/
       },
       {
         test: /\.css$/i,
