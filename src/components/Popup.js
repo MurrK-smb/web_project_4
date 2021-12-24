@@ -6,7 +6,7 @@ export default class Popup {
 
   open() {
     this._popup.classList.add('modal_open')
-    document.addEventListener('keydown', (e) => this._handleEscClose(e))
+    document.addEventListener('keydown', this._escCloseFunc)
   }
 
   close() {
@@ -15,7 +15,7 @@ export default class Popup {
       this._popup.classList.remove('modal_open')
       this._popup.classList.remove('fade-out')
     }, 250)
-    document.removeEventListener('keydown', (e) => this._handleEscClose(e))
+    document.removeEventListener('keydown', this._escCloseFunc)
   }
 
   _handleEscClose(e) {
@@ -23,6 +23,9 @@ export default class Popup {
       this.close()
     }
   }
+
+  _escCloseFunc = this._handleEscClose.bind(this)
+
 
   setEventListeners() {
     this._popup.addEventListener('click', (e) => {

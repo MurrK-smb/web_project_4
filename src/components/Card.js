@@ -15,11 +15,6 @@ class Card {
     imgModal.querySelector('.modal__img-caption').textContent = this._name
   }
 
-  _openPopupImg(imgModal, imgModalContent) {
-    openModal(imgModal)
-    this._setModalData(imgModal, imgModalContent)
-  }
-
   _deleteCard(e) {
     e.target.closest('.card').remove()
   }

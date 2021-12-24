@@ -3,7 +3,7 @@ import './index.css'
 // import all classes
 import FormValidator from '../components/FormValidator.js'
 import Card from '../components/Card.js'
-import { cards, config } from '../components/constants.js'
+import { cards, config, domElements } from '../utils/constants.js'
 import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
@@ -11,53 +11,49 @@ import UserInfo from '../components/UserInfo.js'
 
 // functions
 function handleImageClick(imageData) {
-  ImagePopup.open(imageData)
+  imagePopup.open(imageData)
 }
 
 function cardRenderer(data) {
-  const CardElement = new Card(
+  const cardElement = new Card(
     {
       data, 
       handleImageClick
     }, '#card-template'
   ).createCard()
-  return CardElement
+  return cardElement
 }
 
 // create class instances
-const CardSection = new Section(
+const cardSection = new Section(
   {
     items: cards,
     renderer: cardRenderer
   }, '.cards'
 )
 
-const UserInfoData = new UserInfo(
+const userInfoData = new UserInfo(
   {
     nameSelector: '.info__name',
     jobSelector: '.info__caption'
   }
 )
-const ImagePopup = new PopupWithImage('#img')
 
-const AddPopup = new PopupWithForm(
+const imagePopup = new PopupWithImage('#img')
+
+const addPopup = new PopupWithForm(
   {
     handleFormSubmission: (data) => {
-      const AddedCard = new Card(
-        {
-          data,
-          handleImageClick
-        }, '#card-template'
-      ).createCard()
-      CardSection.addItem(AddedCard)
+      const addedCard = cardRenderer(data)
+      cardSection.addItem(addedCard)
     } 
   }, '#add'
 )
 
-const EditPopup = new PopupWithForm(
+const editPopup = new PopupWithForm(
   {
     handleFormSubmission: (data) => {
-      UserInfoData.setUserInfo(
+      userInfoData.setUserInfo(
         {
           name: data.name,
           job: data.job
@@ -67,38 +63,40 @@ const EditPopup = new PopupWithForm(
   }, '#edit'
 )
 
-const AddFormValidator = new FormValidator(
+const addFormValidator = new FormValidator(
   config,
   '#add-form'
 )
 
-const EditFormValidator = new FormValidator(
+const editFormValidator = new FormValidator(
   config,
   '#edit-form'
 )
 
 // initialize class instances
-CardSection.renderItems(cards)
+cardSection.renderItems(cards)
 
-ImagePopup.setEventListeners()
+imagePopup.setEventListeners()
 
-AddPopup.setEventListeners()
+addPopup.setEventListeners()
 
-EditPopup.setEventListeners()
+editPopup.setEventListeners()
 
-AddFormValidator.enableValidation()
+addFormValidator.enableValidation()
 
-EditFormValidator.enableValidation()
+editFormValidator.enableValidation()
 
 // Everything else
-document.querySelector('.add-button').addEventListener('click', () => {
-  AddPopup.open()
+domElements.addButton.addEventListener('click', () => {
+  addPopup.open()
+  addFormValidator.resetValidation()
 })
 
-document.querySelector('.info__edit-button').addEventListener('click', () => {
-  EditPopup.open()
-  const userData = UserInfoData.getUserInfo()
-  document.querySelector('#form-name').value = userData.name
-  document.querySelector('#form-caption').value = userData.job
+domElements.editButton.addEventListener('click', () => {
+  editPopup.open()
+  editFormValidator.resetValidation()
+  const userData = userInfoData.getUserInfo()
+  domElements.formName.value = userData.name
+  domElements.formJob.value = userData.job
 })
 
