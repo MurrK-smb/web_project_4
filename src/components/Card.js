@@ -1,18 +1,10 @@
 
-// import {openModal, setCloseByClickListener} from './utils.js'
-
 class Card {
   constructor({ data, handleImageClick }, selector) {
     this._name = data.name
     this._link = data.link
     this._selector = selector
     this._handleImageClick = handleImageClick
-  }
-
-  _setModalData(imgModal, imgModalContent) {
-    imgModalContent.src = this._link
-    imgModalContent.alt = this._name
-    imgModal.querySelector('.modal__img-caption').textContent = this._name
   }
 
   _deleteCard(e) {
