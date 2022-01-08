@@ -14,15 +14,18 @@
 
   <main class="content">
     <section class="profile">
-      <img class="avatar" src="<%=require('./images/image.png')%>" alt="Your custom profile picture">
+      <div class="avatar-container">
+        <img class="avatar" src="" alt="Your custom profile picture">
+        <button class="avatar-edit" type="button"></button>
+      </div>
       <div class="info">
         <div class="info__name-group">
-          <h1 class="info__name">Jacques Cousteau</h1>
+          <h1 class="info__name"></h1>
           <button class="info__edit-button" type="button">
             <img class="info__edit-image" src="<%=require('./images/edit.svg')%>" alt="pencil image">
           </button>
         </div>
-        <p class="info__caption">Explorer</p>
+        <p class="info__caption"></p>
       </div>
       <button class="add-button" type="button">
         <img class="add-image" src="<%=require('./images/add.svg')%>" alt="plus image">
@@ -38,7 +41,7 @@
         <form class="form" id="edit-form" name="form">
           <input class="form__input" id="form-name" type="text" name="name" autocomplete="off" required minlength="2" maxlength="40">
           <span class="form__validation" id="form-name-error"></span>
-          <input class="form__input" id="form-caption" type="text" name="job" autocomplete="off" required minlength="2" maxlength="200">
+          <input class="form__input" id="form-caption" type="text" name="about" autocomplete="off" required minlength="2" maxlength="200">
           <span class="form__validation" id="form-caption-error"></span>
           <button class="form__submit" id="edit-submit" type="submit">Save</button>
         </form>
@@ -61,6 +64,32 @@
       </div>
     </div>
 
+    <div class="modal" id="edit-avatar">
+      <div class="modal__body modal__body_input">
+        <button class="modal__close-button" type="button">
+          <img class="modal__close-button-image" src="<%=require('./images/x-button.svg')%>" alt="exit button">
+        </button>
+        <h2 class="modal__title">Change Profile Picture</h2>
+        <form class="form" id="edit-avatar-form">
+          <input type="url" class="form__input" id="form-avatar" name="avatar" placeholder="Image link" required>
+          <span class="form__validation" id="form-avatar-error"></span>
+          <button class="form__submit form__submit_disabled" id="add-submit" type="submit" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="delete">
+      <div class="modal__body modal__body_input">
+        <button class="modal__close-button" type="button">
+          <img class="modal__close-button-image" src="<%=require('./images/x-button.svg')%>" alt="exit button">
+        </button>
+        <h2 class="modal__title">Are you sure?</h2>
+        <form class="form form_delete" id="delete-form">
+          <button class="form__submit" id="delete-submit" type="submit">Yes</button>
+        </form>
+      </div>
+    </div>
+
     <div class="modal" id="img">
       <div class="modal__body">
         <button class="modal__close-button">
@@ -78,7 +107,10 @@
           <img class="card__image" src="#" alt="#">
           <div class="card__details">
             <h2 class="card__title"></h2>
-            <button class="card__like-button" type="button"></button>
+            <div class="card__like-container">
+              <button class="card__like-button" type="button"></button>
+              <p class="card__like-count"></p>
+            </div>
           </div>
         </div>
       </template>

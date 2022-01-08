@@ -20,7 +20,17 @@ const domElements = {
   addButton: document.querySelector('.add-button'),
   editButton: document.querySelector('.info__edit-button'),
   formName: document.querySelector('#form-name'),
-  formJob: document.querySelector('#form-caption')
+  formJob: document.querySelector('#form-caption'),
+  profileName: document.querySelector('.info__name'),
+  profileAbout: document.querySelector('.info__caption'),
+  avatar: document.querySelector('.avatar'),
+  avatarBtn: document.querySelector('.avatar-edit')
 }
 
-export {cards, config, domElements}
+const token = 'b25a31c4-1482-4c51-b23e-11f165e28f8b'
+
+const groupId = 'group-11'
+
+const url = 'https://around.nomoreparties.co/v1/group-11/cards'
+
+export {cards, config, domElements, token, groupId, url}
