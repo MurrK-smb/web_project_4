@@ -72,7 +72,9 @@ const editAvatarPopup = new PopupWithForm(
 const deleteCardPopup = new PopupWithDelete(
   {
     handleFormSubmission: (data) => {
-      console.log(data)
+      api.deleteCard(data._id).then(res => {
+        console.log(res)
+      })
     }
   }, '#delete'
 )
