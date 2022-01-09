@@ -2,9 +2,8 @@
 import Popup from "./Popup"
 
 export default class PopupWithDelete extends Popup {
-  constructor({ handleFormSubmission }, formSelector) {
+  constructor(formSelector) {
     super(formSelector)
-    this._handleFormSubmission = handleFormSubmission
   }
 
   setSubmitAction(action) {

@@ -23,7 +23,6 @@ export default class Api {
       body: JSON.stringify(card)
     })
       .then(res => this._checkResponse(res))
-      .catch(err => console.log(err))
   }
 
   addLike(userId) {
@@ -43,13 +42,9 @@ export default class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: 'b25a31c4-1482-4c51-b23e-11f165e28f8b',
-        'Content-Type': 'application/json'
-      }
+      headers: this._headers
     })
       .then(res => this._checkResponse(res))
-      .catch(err => console.log(err))
   }
 
   editProfile(profileData) {

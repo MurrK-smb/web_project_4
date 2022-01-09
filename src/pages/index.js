@@ -3,7 +3,7 @@ import './index.css'
 // import all classes
 import FormValidator from '../components/FormValidator.js'
 import Card from '../components/Card.js'
-import { cards, config, domElements, token, groupId, url } from '../utils/constants.js'
+import {config, domElements} from '../utils/constants.js'
 import Section from '../components/Section.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
@@ -42,9 +42,11 @@ const imagePopup = new PopupWithImage('#img')
 const addPopup = new PopupWithForm(
   {
     handleFormSubmission: (data) => {
-      api.addCard(data).then(res => {
+      api.addCard(data)
+        .then(res => {
         cardSection.addItem(renderCard(res))
-      })
+        })
+        .catch(err => console.log(err))
     } 
   }, '#add'
 )
@@ -69,15 +71,7 @@ const editAvatarPopup = new PopupWithForm(
   }, '#edit-avatar'
 )
 
-const deleteCardPopup = new PopupWithDelete(
-  {
-    handleFormSubmission: (data) => {
-      api.deleteCard(data._id).then(res => {
-        console.log(res)
-      })
-    }
-  }, '#delete'
-)
+const deleteCardPopup = new PopupWithDelete('#delete')
 
 const addFormValidator = new FormValidator(
   config,
@@ -109,32 +103,42 @@ function renderCard(data) {
         deleteCardPopup.setSubmitAction(() => {
           api.deleteCard(cardId)
             .then(() => {
-              document.getElementById(`${cardId}`).remove()
+              cardElement.deleteCard()
               deleteCardPopup.close()
             })
+            .catch(err => console.log(`An error has ocurred when deleting card: ${err}`))
         })
       },
-      handleLikeToggle: (data) => {
-        if (data._likes.some(like => like._id === userInfoData._id)) {
-          api.removeLike(userInfoData._id)
+      handleLikeToggle: (userId) => {
+        if (cardElement.isLiked()) {
+          api.removeLike(userId)
             .then(likes => cardElement.setLikesInfo(likes))
             .catch(err => console.log(err))
         }
         else {
-          api.addLike(userInfoData._id)
+          api.addLike(userId)
             .then(likes => cardElement.setLikesInfo(likes))
             .catch(err => console.log(err))
         }
       }
-    }, '#card-template'
+    }, '#card-template', userInfoData._id
   ).createCard()
   return cardElement
 }
 
 // initialize class instances
-api.getCardList().then(data => cardSection.renderItems(data))
+Promise.all([api.getCardList, api.getUserInfo])
+  .then(vals => {
+    const [cardList, userInfo] = vals
+    cardSection.renderItems(cardList)
+    userInfoData.setUserInfo(userInfo)
+    userInfoData.setAvatar(userInfo.avatar)
+  })
+  .catch(err => console.log(`An error has occured when rendering: ${err}`))
 
-api.getUserInfo().then(data => {userInfoData.setUserInfo(data), userInfoData.setAvatar(data.avatar), console.log(data)})
+// api.getCardList().then(data => cardSection.renderItems(data))
+
+// api.getUserInfo().then(data => {userInfoData.setUserInfo(data), userInfoData.setAvatar(data.avatar), console.log(data)})
 
 imagePopup.setEventListeners()
 
