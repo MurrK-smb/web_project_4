@@ -135,10 +135,7 @@ Promise.all([api.getCardList, api.getUserInfo])
     userInfoData.setAvatar(userInfo.avatar)
   })
   .catch(err => console.log(`An error has occured when rendering: ${err}`))
-
-// api.getCardList().then(data => cardSection.renderItems(data))
-
-// api.getUserInfo().then(data => {userInfoData.setUserInfo(data), userInfoData.setAvatar(data.avatar), console.log(data)})
+;
 
 imagePopup.setEventListeners()
 
