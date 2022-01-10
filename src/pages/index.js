@@ -54,9 +54,11 @@ const addPopup = new PopupWithForm(
 const editPopup = new PopupWithForm(
   {
     handleFormSubmission: (data) => {
-      api.editProfile(data).then(res => {
-        userInfoData.setUserInfo(res)
-      })
+      api.editProfile(data)
+      .then(res => {
+          userInfoData.setUserInfo(res)
+        })
+      .catch(err => console.log(err))
     }
   }, '#edit'
 )
@@ -64,9 +66,11 @@ const editPopup = new PopupWithForm(
 const editAvatarPopup = new PopupWithForm(
   {
     handleFormSubmission: (data) => {
-      api.editAvatar(data).then(res => {
-        userInfoData.setAvatar(res)
-      })
+      api.editAvatar(data)
+        .then(res => {
+          userInfoData.setAvatar(res)
+        })
+        .catch(err => console.log(err))
     }
   }, '#edit-avatar'
 )
@@ -127,7 +131,7 @@ function renderCard(data) {
 }
 
 // initialize class instances
-Promise.all([api.getCardList, api.getUserInfo])
+Promise.all([api.getCardList(), api.getUserInfo()])
   .then(vals => {
     const [cardList, userInfo] = vals
     cardSection.renderItems(cardList)

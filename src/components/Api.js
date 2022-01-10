@@ -12,10 +12,6 @@ export default class Api {
     return Promise.reject(`Error: ${res.status}`)
   }
 
-  getCardList() {
-    return fetch(`${this._baseUrl}/cards`, {headers: this._headers}).then(res => this._checkResponse(res))
-  }
-
   addCard(card) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -61,6 +57,10 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify(avatar)
     }).then(res => this._checkResponse(res))
+  }
+
+  getCardList() {
+    return fetch(`${this._baseUrl}/cards`, {headers: this._headers}).then(res => this._checkResponse(res))
   }
 
   getUserInfo() {

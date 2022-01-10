@@ -47,8 +47,8 @@ class Card {
   }
 
   createCard() {
-    this._cardElement.querySelector('.card__delete').classList.add(this._id === this._ownerId ? 'card__delete_visible' : 'card__delete_invisible')
     this._cardElement = this._getCardElement()
+    this._cardElement.querySelector('.card__delete').classList.add(this._id === this._ownerId ? 'card__delete_visible' : 'card__delete_invisible')
     this._cardElement.id = this._id
     this._cardImage = this._cardElement.querySelector('.card__image')
     this._cardLikes = this._cardElement.querySelector('.card__like-count')
