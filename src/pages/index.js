@@ -44,7 +44,8 @@ const addPopup = new PopupWithForm(
     handleFormSubmission: (data) => {
       api.addCard(data)
         .then(res => {
-        cardSection.addItem(renderCard(res))
+          cardSection.addItem(renderCard(res))
+          addPopup.close()
         })
         .catch(err => console.log(err))
     } 
@@ -57,6 +58,7 @@ const editPopup = new PopupWithForm(
       api.editProfile(data)
       .then(res => {
           userInfoData.setUserInfo(res)
+          editPopup.close()
         })
       .catch(err => console.log(err))
     }
@@ -69,6 +71,7 @@ const editAvatarPopup = new PopupWithForm(
       api.editAvatar(data)
         .then(res => {
           userInfoData.setAvatar(res)
+          editAvatarPopup.close()
         })
         .catch(err => console.log(err))
     }
